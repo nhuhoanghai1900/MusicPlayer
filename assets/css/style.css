@@ -12,7 +12,6 @@
 html {
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
-  font-size: 62.5%;
 }
 
 body {
@@ -42,7 +41,7 @@ body {
   background-color: #e4ecb2;
   position: fixed;
   top: 0;
-  width: 120%;
+  width: 100%;
   max-width: 480px;
   border-bottom: 1px solid #ebebeb;
 }
