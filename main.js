@@ -94,7 +94,7 @@ const app = {
           <div class="song ${index === this.songsIndex ? 'active' : ''}" data-index="${index}">
             <div class="thumb" style=" background-image: url('${song.image}');"></div>           
             <div class="body">
-              <h3 class="title">${song.name}</h3>
+              <h2 class="title">${song.name}</h2>
               <p class="author">${song.singer}</p>
             </div>
             <div class="btn-favorite" data-index="0">
