@@ -7,10 +7,12 @@
   padding: 0;
   margin: 0;
   box-sizing: inherit;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 
 body {
-  background-image: linear-gradient(0,rgb(255, 143, 242), rgb(176, 255, 255))
+  background-image: linear-gradient(0, rgb(255, 143, 242), rgb(176, 255, 255));
 }
 
 html {
@@ -37,13 +39,44 @@ html {
 }
 
 .dashboard {
-  padding: 16px 16px 14px;
-  background-color: #fff;
   position: fixed;
   top: 0;
   width: 100%;
   max-width: 480px;
+  padding: 16px 16px 14px;
+  background-color: #fff;
   border-bottom: 1px solid #ebebeb;
+  margin-top: 20px;
+  border-radius: 15px;
+  transition: background-color 0.4s;
+}
+
+.search-bar {
+  position: relative;
+  width: 100%;
+  margin-bottom: 10px;
+  max-width: 480px;
+  padding: 0 12px;
+  z-index: 2;
+}
+
+.search-bar input {
+  width: 100%;
+  padding: 10px 40px 10px 15px;
+  border: 1px solid #ddd;
+  border-radius: 15px;
+  font-size: 14px;
+  outline: none;
+  background-color: var(--card-background);
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+.search-bar i {
+  position: absolute;
+  right: 25px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #666;
 }
 
 /* HEADER */
@@ -52,16 +85,11 @@ header {
   margin-bottom: 10px;
 }
 
-header h2 {
-  color: var(--primary-color);
-  font-size: 15px;
-}
-
 /* CD */
 .cd {
   display: flex;
   margin: auto;
-  width: 300px;
+  width: 200px;
 }
 
 .cd-thumb {
@@ -86,6 +114,7 @@ header h2 {
   padding: 18px;
   font-size: 18px;
   cursor: pointer;
+
 }
 
 .control .btn.active {
@@ -125,16 +154,14 @@ header h2 {
 
 /* PLAYLIST */
 .playlist {
-  margin-top: 508px;
+  margin-top: 468px;
   padding: 12px;
-  height: 475px;
-  overflow-y: scroll;
-  scroll-behavior: smooth;
-  cursor: pointer;
 }
-.playlist::-webkit-scrollbar{
+
+.playlist::-webkit-scrollbar {
   display: none;
 }
+
 .song {
   display: flex;
   align-items: center;
@@ -143,17 +170,17 @@ header h2 {
   padding: 8px 16px;
   border-radius: 5px;
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
 }
 
 .song.active {
-  background-color: var(--primary-color);
+  background-color: var(--primary-color) !important;
 }
 
 .song:active {
   opacity: 0.8;
 }
 
-.song.active .option,
 .song.active .author,
 .song.active .title {
   color: #fff;
@@ -178,12 +205,54 @@ header h2 {
 }
 
 .song .author {
-  font-size: 12px;
-  color: #999;
+  font-size: 13px;
+  color: #860c0c;
+  font-style: italic;
 }
 
-.song .option {
-  padding: 16px 8px;
-  color: #999;
-  font-size: 18px;
+/* Dark-mode ----------------------------------------- */
+body.dark-mode {
+  background: linear-gradient(135deg, #1e1e2f, #121212); /* Gradient nền */
+  color: #e0e0e0; /* Màu chữ sáng hơn */
+  transition: background 0.5s ease, color 0.5s ease; /* Hiệu ứng chuyển đổi mượt mà */
+}
+
+body.dark-mode .dashboard {
+  background: rgba(50, 50, 50, 1); /* Nền mờ */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); /* Đổ bóng */
+  border-radius: 15px; /* Bo góc */
+  transition: background 0.5s ease, box-shadow 0.5s ease; /* Hiệu ứng chuyển đổi */
+}
+
+body.dark-mode .playlist {
+  background: rgba(30, 30, 30, 0.9); /* Nền mờ hơn */
+  border-radius: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); /* Đổ bóng */
+  transition: background 0.5s ease, box-shadow 0.5s ease;
+}
+
+body.dark-mode .song {
+  background: rgba(40, 40, 40, 0.9); /* Nền mờ */
+  border-radius: 10px; /* Bo góc */
+  margin-bottom: 10px; /* Khoảng cách giữa các bài hát */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5); /* Đổ bóng */
+  transition: background 0.5s ease, box-shadow 0.5s ease;
+}
+
+body.dark-mode .song .body .title {
+  color: #ffffff; /* Màu chữ sáng */
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7); /* Hiệu ứng bóng chữ */
+}
+
+body.dark-mode .song .body .author {
+  color: #ff8c00; /* Màu chữ nổi bật */
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7); /* Hiệu ứng bóng chữ */
+}
+
+body.dark-mode .dark-mode-toggle {
+  background: linear-gradient(135deg, #ff8c00, #ff4500); /* Gradient nút chuyển đổi */
+  color: #fff;
+  border-radius: 50%;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Đổ bóng */
+  transition: background 0.5s ease, box-shadow 0.5s ease;
 }
