@@ -1,0 +1,68 @@
+[
+    {
+        "name": "Sự Nghiệp Chướng",
+        "singer": "Pháo",
+        "path": "/MusicPlayer/assets/music/Sự nghiệp Chướng.mp3",
+        "image": "/MusicPlayer/assets/img/playlist/SuNghiepChuong.jpg"
+    },
+    {
+        "name": "Tệ Thật Anh Nhớ Em",
+        "singer": "Thanh Hưng",
+        "path": "/MusicPlayer/assets/music/Tệ Thật, Anh Nhớ Em  Thanh Hưng  Piano cover  Nguyenn.mp3",
+        "image": "/MusicPlayer/assets/img/playlist/TeThatAnhNhoEm.jpg"
+    },
+    {
+        "name": "Sẽ Có Người Tốt Hơn",
+        "singer": "Min.T",
+        "path": "/MusicPlayer/assets/music//Sẽ Có Người Tốt Hơn Min.T  Piano cover Nguyenn.mp3",
+        "image": "/MusicPlayer/assets/img/playlist/Sẽ Có Người Tốt Hơn.jpg"
+    },
+    {
+        "name": "Đoạn Kết Cuối",
+        "singer": "Vũ Thịnh - FANNY",
+        "path": "/MusicPlayer/assets/music/ĐOẠN KẾT CUỐI - VŨ THỊNH (FT. FANNY)  PIANO COVER  NGUYENN.mp3",
+        "image": "/MusicPlayer/assets/img/playlist/DoanKetCuoi.jpg"
+    },
+    {
+        "name": "Tình Yêu Chậm Trễ",
+        "singer": "MONSTAR",
+        "path": "/MusicPlayer/assets/music/MONSTAR - TÌNH YÊU CHẬM TRỄ  PIANO COVER  NGUYENN.mp3",
+        "image": "/MusicPlayer/assets/img/playlist/TÌNH YÊU CHẬM TRỄ.jpg"
+    },
+    {
+        "name": "Rồi Ta Sẽ Ngắm Pháo Hoa Cùng Nhau",
+        "singer": "O.LEW",
+        "path": "/MusicPlayer/assets/music/RỒI TA SẼ NGẮM PHÁO HOA CÙNG NHAU  Olew  Piano cover  Nguyenn ft Hiền Hiền ( Hợp âm).mp3",
+        "image": "/MusicPlayer/assets/img/playlist/Rồi Ta Sẽ Ngắm Pháo Hoa Cùng Nhau.jpg"
+    },
+    {
+        "name": "Thích một người",
+        "singer": "TrungIU",
+        "path": "/MusicPlayer/assets/music/Trungg I.U - 'THÍCH MỘT NGƯỜI' l Piano cover l Nguyenn.mp3",
+        "image": "/MusicPlayer/assets/img/playlist/Thích Một Người.jpg"
+    },
+    {
+        "name": "Chẳng Thể Cùng Em",
+        "singer": "Quockiet feat. Khiem",
+        "path": "/MusicPlayer/assets/music/Chẳng Thể Cùng Em  Quockiet feat. Khiem  Nguyenn x @aric1407 I Piano cover.mp3",
+        "image": "/MusicPlayer/assets/img/playlist/Chẳng Thể Cùng Em.jpg"
+    },
+    {
+        "name": "Chúng Ta Chỉ Giống Tình Yêu",
+        "singer": "Hoàng Green",
+        "path": "/MusicPlayer/assets/music/CHÚNG TA CHỈ GIỐNG TÌNH YÊU - HOÀNG GREEN  NGUYENN x ARIC PIANO COVER.mp3",
+        "image": "/MusicPlayer/assets/img/playlist/Chúng Ta Chỉ Giống Tình Yêu.jpg"
+    },
+    {
+        "name": "Một Người Đánh Mất Một Người",
+        "singer": "Olew",
+        "path": "/MusicPlayer/assets/music/O.LEW - MỘT NGƯỜI ĐÁNH MẤT MỘT NGƯỜI  PIANO COVER  NGUYENN.mp3",
+        "image": "/MusicPlayer/assets/img/playlist/Một Người Đánh Mất Một Người.jpg"
+    },
+    {
+        "name": "Tôi Gặp Em Vào Mùa Hạ",
+        "singer": "Việt Anh",
+        "path": "/MusicPlayer/assets/music/TÔI GẶP EM VÀO MÙA HẠ - VIỆT ANH  NGUYENN PIANO COVER.mp3",
+        "image": "/MusicPlayer/assets/img/playlist/Tôi Gặp Em Vào Mùa Hạ.jpg"
+    }
+]

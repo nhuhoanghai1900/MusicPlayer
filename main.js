@@ -1,10 +1,11 @@
-const $ = document.querySelector.bind(document);
-const $$ = document.querySelectorAll.bind(document);
+const $ = document.querySelector.bind(document)
+const $$ = document.querySelectorAll.bind(document)
+
 const dataPlaylist = $(".playlist")
-const heading = $("header h3");
-const cd = $(".cd");
-const cdThumb = $(".cd-thumb");
-const audio = $("#audio");
+const heading = $("header h3")
+const cd = $(".cd")
+const cdThumb = $(".cd-thumb")
+const audio = $("#audio")
 const btnplay = $(".btn-toggle-play")
 const progress = $('#progress')
 const btnNext = $('.btn-next')
@@ -12,119 +13,103 @@ const btnPrev = $('.btn-prev')
 const btnRandom = $('.btn-random')
 const btnRepeat = $('.btn-repeat')
 const dashboard = $('.dashboard')
-const toggleDarkMode = $(".dark-mode-toggle");
-
+const toggleDarkMode = $(".dark-mode-toggle")
+const searchInput = $("#search")
+/**
+ * Ứng dụng phát nhạc với các chức năng:
+ * - Lấy dữ liệu bài hát từ file JSON.
+ * - Hiển thị danh sách bài hát và tìm kiếm theo từ khóa.
+ * - Phát, tạm dừng, tua bài hát, và cập nhật giao diện.
+ * - Chuyển bài hát tiếp theo, bài hát trước đó.
+ * - Phát ngẫu nhiên và lặp lại bài hát.
+ * - Chuyển đổi chế độ tối và yêu thích bài hát.
+ * 
+ * Các phương thức chính:
+ * - `fetchSongsData()`: Lấy dữ liệu bài hát từ file `database.json`.
+ * - `render(keyword)`: Hiển thị danh sách bài hát, có thể lọc theo từ khóa.
+ * - `defineProperties()`: Định nghĩa thuộc tính để lấy bài hát hiện tại.
+ * - `loadSongs()`: Tải dữ liệu bài hát hiện tại lên giao diện.
+ * - `nextSongs()`: Chuyển đến bài hát tiếp theo.
+ * - `prevSongs()`: Quay lại bài hát trước đó.
+ * - `randomSongs()`: Phát bài hát ngẫu nhiên, tránh lặp lại.
+ * - `scrollToActive()`: Cuộn đến bài hát đang phát.
+ * - `hendleEvents()`: Xử lý các sự kiện giao diện như play, pause, tua, chuyển bài, tìm kiếm, v.v.
+ * - `start()`: Khởi động ứng dụng, gọi các phương thức cần thiết.
+ * 
+ * Thuộc tính:
+ * - `songsIndex`: Vị trí bài hát hiện tại trong danh sách.
+ * - `isPlaying`: Trạng thái phát nhạc (true/false).
+ * - `isRandom`: Trạng thái phát ngẫu nhiên (true/false).
+ * - `isRepeat`: Trạng thái lặp lại bài hát (true/false).
+ * - `shuffledSongs`: Danh sách bài hát xáo trộn.
+ * - `songs`: Danh sách bài hát (data chính).
+ */
 const app = {
     songsIndex: 0,
+    songs: [],
     isPlaying: true,
     isRandom: false,
     isRepeat: false,
-    songs: [
-        {
-            name: "Sự Nghiệp Chướng",
-            singer: "Pháo",
-            path: "/MusicPlayer/assets/music/Sự nghiệp Chướng.mp3",
-            image: "/MusicPlayer/assets/img/playlist/SuNghiepChuong.jpg",
-        },
-        {
-            name: "Tệ Thật Anh Nhớ Em",
-            singer: "Thanh Hưng",
-            path: "/MusicPlayer/assets/music/Tệ Thật, Anh Nhớ Em  Thanh Hưng  Piano cover  Nguyenn.mp3",
-            image: "/MusicPlayer/assets/img/playlist/TeThatAnhNhoEm.jpg",
-        },
-        {
-            name: "Sẽ Có Người Tốt Hơn",
-            singer: "Min.T",
-            path: "/MusicPlayer/assets/music//Sẽ Có Người Tốt Hơn Min.T  Piano cover Nguyenn.mp3",
-            image: "/MusicPlayer/assets/img/playlist/Sẽ Có Người Tốt Hơn.jpg",
-        },
-        {
-            name: "Đoạn Kết Cuối",
-            singer: "Vũ Thịnh - FANNY",
-            path: "/MusicPlayer/assets/music/ĐOẠN KẾT CUỐI - VŨ THỊNH (FT. FANNY)  PIANO COVER  NGUYENN.mp3",
-            image: "/MusicPlayer/assets/img/playlist/DoanKetCuoi.jpg",
-        },
-        {
-            name: "Tình Yêu Chậm Trễ",
-            singer: "MONSTAR",
-            path: "/MusicPlayer/assets/music/MONSTAR - TÌNH YÊU CHẬM TRỄ  PIANO COVER  NGUYENN.mp3",
-            image: "/MusicPlayer/assets/img/playlist/TÌNH YÊU CHẬM TRỄ.jpg",
-        },
-        {
-            name: "Rồi Ta Sẽ Ngắm Pháo Hoa Cùng Nhau",
-            singer: "O.LEW",
-            path: "/MusicPlayer/assets/music/RỒI TA SẼ NGẮM PHÁO HOA CÙNG NHAU  Olew  Piano cover  Nguyenn ft Hiền Hiền ( Hợp âm).mp3",
-            image: "/MusicPlayer/assets/img/playlist/Rồi Ta Sẽ Ngắm Pháo Hoa Cùng Nhau.jpg",
-        },
-        {
-            name: "Thích một người",
-            singer: "TrungIU",
-            path: "/MusicPlayer/assets/music/Trungg I.U - 'THÍCH MỘT NGƯỜI' l Piano cover l Nguyenn.mp3",
-            image: "/MusicPlayer/assets/img/playlist/Thích Một Người.jpg",
-        },
-        {
-            name: "Chẳng Thể Cùng Em",
-            singer: "Quockiet feat. Khiem",
-            path: "/MusicPlayer/assets/music/Chẳng Thể Cùng Em  Quockiet feat. Khiem  Nguyenn x @aric1407 I Piano cover.mp3",
-            image: "/MusicPlayer/assets/img/playlist/Chẳng Thể Cùng Em.jpg",
-        },
-        {
-            name: "Chúng Ta Chỉ Giống Tình Yêu",
-            singer: "Hoàng Green",
-            path: "/MusicPlayer/assets/music/CHÚNG TA CHỈ GIỐNG TÌNH YÊU - HOÀNG GREEN  NGUYENN x ARIC PIANO COVER.mp3",
-            image: "/MusicPlayer/assets/img/playlist/Chúng Ta Chỉ Giống Tình Yêu.jpg",
-        },
-        {
-            name: "Một Người Đánh Mất Một Người",
-            singer: "Olew",
-            path: "/MusicPlayer/assets/music/O.LEW - MỘT NGƯỜI ĐÁNH MẤT MỘT NGƯỜI  PIANO COVER  NGUYENN.mp3",
-            image: "/MusicPlayer/assets/img/playlist/Một Người Đánh Mất Một Người.jpg",
-        },
-        {
-            name: "Tôi Gặp Em Vào Mùa Hạ",
-            singer: "Việt Anh",
-            path: "/MusicPlayer/assets/music/TÔI GẶP EM VÀO MÙA HẠ - VIỆT ANH  NGUYENN PIANO COVER.mp3",
-            image: "/MusicPlayer/assets/img/playlist/Tôi Gặp Em Vào Mùa Hạ.jpg",
-        },
-    ],
+    shuffledSongs: [],
+    getConfig: JSON.parse(localStorage.getItem('local_storage')) || {},
+    setConfig: function (key, value) {
+        this.getConfig[key] = value
+        localStorage.setItem('local_storage', JSON.stringify(this.getConfig))
+    },
+
+    // lấy dữ liệu bài hát từ file database.json
+    async fetchSongsData() {
+        const res = await fetch('./database.json') // Gửi yêu cầu fetch đến file database.json
+        this.songs = await res.json()  // Chuyển đổi dữ liệu nhận được thành JSON và gán vào mảng songs
+        this.start()
+    },
+
     //---------- 0. Trả về dữ liệu mới theo mảng songs
-    render: function () { //
-        const htmls = this.songs.map((song, index) => {
-            return `
+    render: function (keyword = "") { //
+        const htmls = this.songs
+            // Lọc danh sách theo tên bài hát hoặc ca sĩ
+            .filter(song =>
+                song.name.toLowerCase().includes(keyword) ||
+                song.singer.toLowerCase().includes(keyword))
+            // Duyệt qua từng song trong mảng songs => trả về giá trị mới.
+            .map((song, index) => {
+                return `
           <div class="song ${index === this.songsIndex ? 'active' : ''}" data-index="${index}">
             <div class="thumb" style=" background-image: url('${song.image}');"></div>           
             <div class="body">
               <h2 class="title">${song.name}</h2>
               <p class="author">${song.singer}</p>
             </div>
-            <div class="btn-favorite" data-index="0">
             <i class="far fa-heart"></i>
-          </div>
           </div>`
-        });
-        dataPlaylist.innerHTML = htmls.join("\n");
+            })
+        dataPlaylist.innerHTML = htmls.join("");
     },
 
-    //--------------- 1. Định nghĩa thuộc tính để lấy dữ liệu bài hát hiện tại
+    //--------------- 1. Định nghĩa thuộc tính để lấy dữ liệu bài hát
     defineProperties: function () {
         // Sử dụng Object.defineProperty để thêm hoặc chỉnh sửa một thuộc tính
         Object.defineProperty(this, "getSongs", {
             // Getter để đọc và lấy dữ liệu bài hát hiện tại
             get: function () {
-                return this.songs[this.songsIndex]; // Trả về dữ liệu bài hát tại vị trí 'songsIndex' trong mảng songs
+                return this.songs[this.songsIndex]; // Trả về bài hát có index 'songsIndex' trong songs
             },
         });
     },
 
     //------------------------- 2. Tải dữ liệu bài hát hiện tại lên giao diện
     loadSongs: function () {
-        // Cập nhật tiêu đề bài hát
-        heading.textContent = this.getSongs.name;
-        // Cập nhật hình ảnh thumbnail của bài hát
-        cdThumb.style.backgroundImage = `url('${this.getSongs.image}')`;
-        // Cập nhật đường dẫn file nhạc cho audio
-        audio.src = this.getSongs.path;
-        app.render() // Nếu cần, có thể render lại danh sách bài hát sau khi tải dữ liệu
+        heading.textContent = this.getSongs.name; // Cập nhật tiêu đề bài hát
+        cdThumb.style.backgroundImage = `url('${this.getSongs.image}')`; // Cập nhật img bài hát
+        audio.src = this.getSongs.path; // Cập nhật file nhạc
+        app.render() // Render lại danh sách bài hát sau khi tải dữ liệu
+    },
+
+
+    //local_storage
+    loadStorage: function () {
+        app.isRandom = app.getConfig.isRandom
+        app.isRepeat = app.getConfig.isRepeat
     },
 
     //------------------------- Next nhạc
@@ -147,49 +132,53 @@ const app = {
         this.scrollToActive()
     },
 
-    //------------------------- Random nhạc
+    //------------------------- Random nhạc (tránh lặp index song nhiều lần trong 1 playlist)
     randomSongs: function () {
+        //nếu shuffledSongs chưa có playlist hoặc có rồi nhưng hết 'song' thì làm mới playlist
+        if (!this.shuffledSongs || this.shuffledSongs.length === 0) {
+            this.shuffledSongs = [...this.songs]
+        }
+        //tạo mới + ngẫu nhiên giá trị index trong mảng shuffledSongs
         let newSongsIndex
         do {
-            newSongsIndex = Math.floor(Math.random() * this.songs.length)
-        } while (newSongsIndex === this.songsIndex);
-        this.songsIndex = newSongsIndex
+            newSongsIndex = Math.floor(Math.random() * this.shuffledSongs.length)
+        } while (newSongsIndex === this.songsIndex); // nếu điều kiện đúng tiếp tục lặp
+
+        // trả về index mới nếu newSongsIndex có trong mảng data 'songs'
+        this.songsIndex = this.songs.findIndex(index => index === this.shuffledSongs[newSongsIndex])
+        //sau khi gán cho this.songsIndex  => xóa đi newSongsIndex đã random trong this.shuffledSongs
+        this.shuffledSongs.splice(newSongsIndex, 1)
+
         app.loadSongs()
     },
 
     scrollToActive: function () {
         $('.song.active').scrollIntoView({
             behavior: 'smooth',
-            block: 'nearest'
+            block: 'center'
         })
     },
 
-    //------------------------- Listener Event ----------------------------------------
+    //------------------------- Event Handles ----------------------------------------
     hendleEvents: function () {
         //zoom cd-thuhmb
         const newCd = cd.offsetWidth; // get width value
-
         document.onscroll = function () {
             const scrollTop = window.scrollY || document.documentElement.scrollTop;
             const setWidth = newCd - scrollTop;
             let marginTop = dashboard.style.marginTop;
-            
-            if (setWidth > 0) {
-                marginTop = 20 + 'px';
-            } else {
-                marginTop = 0 + 'px';
-            }
-            dashboard.style.marginTop = marginTop;
+
+            let newMarginTop = setWidth > 0 ? '15px' : 0
+            dashboard.style.marginTop = newMarginTop;
 
             cd.style.width = setWidth > 0 ? setWidth + "px" : "0px";
-            // //làm mờ cd
             cd.style.opacity = setWidth / newCd;
         }
 
         //lắng nghe và xử lý play + pause
         btnplay.onclick = function () {
             //nếu isPlaying = false (ko chạy)
-            if (btnplay.isPlaying) {
+            if (this.isPlaying) {
                 audio.pause()
             }
             //nếu isPlaying = true (đang chạy)
@@ -226,13 +215,12 @@ const app = {
         }
 
         //CD Rotate
-        const cdThumbAnimate = cdThumb.animate([
-            { transform: 'rotate(0deg)' },
-            { transform: 'rotate(360deg)' }
-        ], {
-            duration: 5000, //seconds
-            iterations: Infinity
-        })
+        const cdThumbAnimate = cdThumb.animate(
+            { transform: 'rotate(360deg)' },
+            {
+                duration: 5000, //seconds
+                iterations: Infinity
+            })
         cdThumbAnimate.pause()
 
         //Next Songs
@@ -258,12 +246,14 @@ const app = {
         //Random Songs
         btnRandom.onclick = function () {
             app.isRandom = !app.isRandom
+            app.setConfig('isRandom', app.isRandom)
             this.classList.toggle('active', app.isRandom) //this mặc định là phần tử DOM kích hoạt sự kiện
         }
 
         //------------------------- Repeat Songs
         btnRepeat.onclick = function () {
             app.isRepeat = !app.isRepeat
+            app.setConfig('isRepeat', app.isRepeat)
             this.classList.toggle('active', app.isRepeat) //this mặc định là phần tử DOM kích hoạt sự kiện
         }
 
@@ -278,6 +268,7 @@ const app = {
 
         //Xử lý khi click bài hát
         dataPlaylist.onclick = function (e) {
+            //Tìm phần tử cha gần nhất có class 'song' mà không có class 'active'.
             const songNode = e.target.closest('.song:not(.active)')
             if (songNode) {
                 app.songsIndex = Number(songNode.dataset.index)
@@ -285,19 +276,35 @@ const app = {
                 audio.play()
                 app.render()
             }
+
+            // Xử lý khi click nút yêu thích (btn-favorite)
+            const btnFavorite = e.target.closest('.fa-heart')
+            if (btnFavorite) {
+                btnFavorite.classList.toggle('heart')
+            }
         }
 
-        //
+        //chế độ tối
         toggleDarkMode.onclick = function () {
             document.body.classList.toggle('dark-mode')
+        }
+
+        // Chức năng tìm kiếm
+        searchInput.oninput = function () {
+            const keyword = this.value.toLowerCase().trim()
+            app.render(keyword)
         }
 
     },
     start: function () {
         this.render();
+        this.loadStorage();
         this.defineProperties();
         this.loadSongs();
         this.hendleEvents();
+
+        btnRandom.classList.toggle('active', app.isRandom)
+        btnRepeat.classList.toggle('active', app.isRepeat)
     },
 };
-app.start();
+app.fetchSongsData();

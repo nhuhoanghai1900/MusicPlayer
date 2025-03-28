@@ -46,9 +46,10 @@ html {
   padding: 16px 16px 14px;
   background-color: #fff;
   border-bottom: 1px solid #ebebeb;
-  margin-top: 20px;
+  margin-top: 15px;
   border-radius: 15px;
   transition: background-color 0.4s;
+  z-index: 10;
 }
 
 .search-bar {
@@ -208,6 +209,15 @@ header {
   font-size: 13px;
   color: #860c0c;
   font-style: italic;
+}
+
+
+.far{
+  font-size: 25px;
+}
+.heart {
+  color: red; 
+  font-weight: bold;
 }
 
 /* Dark-mode ----------------------------------------- */
