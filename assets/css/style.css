@@ -153,9 +153,34 @@ header {
   cursor: pointer;
 }
 
+.list-favorite {
+  margin-top: 20px;
+  padding: 12px 20px;
+  width: 100%;
+  text-align: center;
+  cursor: pointer;
+  background: linear-gradient(135deg, #00aaa2, #007f7a);
+  border-radius: 12px;
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.list-favorite:hover {
+  background: linear-gradient(135deg, #007f7a, #005f5a);
+  transform: translateY(-2px);
+}
+
+.list-favorite:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
 /* PLAYLIST */
 .playlist {
-  margin-top: 468px;
+  margin-top: 515px;
   padding: 12px;
 }
 
