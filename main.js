@@ -23,7 +23,7 @@ const app = {
     isPlaying: true,
     isRandom: false,
     isRepeat: false,
-    isHeart: false,
+    isDark: false,
     favoritePlaylist: [],
     islistFavorite: false,
     shuffledSongs: [],
@@ -80,6 +80,7 @@ const app = {
     loadStorage: function () {
         app.isRandom = app.getConfig.isRandom
         app.isRepeat = app.getConfig.isRepeat
+        app.isDark = app.getConfig.isDark
         this.fvSongs = this.getConfig.fvSongs || {}
     },
 
@@ -234,7 +235,9 @@ const app = {
 
         // Chuyển chế độ tối
         toggleDarkMode.onclick = function () {
-            document.body.classList.toggle('dark-mode')
+            app.isDark = !app.isDark
+            app.setConfig('isDark', app.isDark)
+            document.body.classList.toggle('dark-mode', app.isDark)
         }
 
         // Tìm kiếm bài hát
@@ -262,6 +265,7 @@ const app = {
 
         btnRandom.classList.toggle('active', app.isRandom)
         btnRepeat.classList.toggle('active', app.isRepeat)
+        document.body.classList.toggle('dark-mode', app.isDark)
     },
 };
 app.fetchSongsData();
