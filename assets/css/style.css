@@ -156,21 +156,20 @@ header {
 .list-favorite {
   margin-top: 20px;
   padding: 12px 20px;
-  width: 100%;
   text-align: center;
   cursor: pointer;
-  background: linear-gradient(135deg, #00aaa2, #007f7a);
+  background-color: #00aaa2;
   border-radius: 12px;
   color: #fff;
   font-size: 16px;
   font-weight: bold;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  transition: background 0.3s ease, transform 0.2s ease;
+  transition: background-color 0.3s ease, transform .1s ease, opacity .1s ease;
 }
 
 .list-favorite:hover {
-  background: linear-gradient(135deg, #007f7a, #005f5a);
-  transform: translateY(-2px);
+  background-color: #00aaa2;
+  transform: translateY(-1px);
+  opacity: 0.7;
 }
 
 .list-favorite:active {
@@ -204,8 +203,12 @@ header {
 }
 
 .song:active {
+  opacity: 0.9;
+}
+.song:hover {
   opacity: 0.8;
 }
+
 
 .song.active .author,
 .song.active .title {

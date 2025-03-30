@@ -33,7 +33,7 @@ const app = {
         localStorage.setItem('local_storage', JSON.stringify(this.getConfig)) // Lưu vào localStorage
     },
 
-    // Lấy danh sách bài hát từ file database.json
+    // Lấy dữ liệu bài hát -> database.json
     async fetchSongsData() {
         const res = await fetch('./database.json') // Fetch dữ liệu
         this.songs = await res.json()  // Gán dữ liệu vào mảng songs
@@ -220,7 +220,6 @@ const app = {
             if (songNode) {
                 app.songsIndex = Number(songNode.dataset.index)
                 app.loadSongs()
-                audio.play()
             }
             if (btnFavorite) {
                 const fvIndex = Number(btnFavorite.closest('.song').dataset.index)
@@ -229,6 +228,7 @@ const app = {
                 app.setConfig('fvSongs', fvSongs);
                 btnFavorite.classList.toggle('heart', fvSongs[fvIndex]);
             }
+            btnFavorite ? audio.pause() : audio.play()
             app.updateFavoritePlaylist()
             app.render("", app.islistFavorite ? app.favoritePlaylist : app.songs)
         }
